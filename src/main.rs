@@ -27,11 +27,14 @@ pub struct Rectangle {
     bottom_right: Point,
 }
 
-pub fn calc_rectangle_area(rect: &Rectangle) -> f32 {
-    let Rectangle {
-        top_left: Point { x: x1, y: y1 },
-        bottom_right: Point { x: x2, y: y2 },
-    } = rect;
+pub fn calc_rectangle_area(
+    Rectangle {
+        top_left,
+        bottom_right,
+    }: &Rectangle,
+) -> f32 {
+    let Point { x: x1, y: y1 } = top_left;
+    let Point { x: x2, y: y2 } = bottom_right;
     (x2 - x1) * (y2 - y1)
 }
 
@@ -50,8 +53,7 @@ pub struct Triangle {
     c: Point,
 }
 
-pub fn calc_triangle_area(triangle: &Triangle) -> f32 {
-    let Triangle { a, b, c } = triangle;
+pub fn calc_triangle_area(Triangle { a, b, c }: &Triangle) -> f32 {
     let Point { x: x1, y: y1 } = a;
     let Point { x: x2, y: y2 } = b;
     let Point { x: x3, y: y3 } = c;
@@ -65,7 +67,24 @@ fn triangle_area(triangle: Json<Triangle>) -> Json<Area> {
     })
 }
 
+#[derive(Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct Circle {
+    radius: f32,
+}
+
+pub fn calc_circle_area(Circle { radius }: &Circle) -> f32 {
+    std::f32::consts::PI * radius * radius
+}
+
+#[post("/circle/area", data = "<circle>", format = "json")]
+fn circle_area(circle: Json<Circle>) -> Json<Area> {
+    Json(Area {
+        area: calc_circle_area(&circle.into_inner()),
+    })
+}
+
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![triangle_area, rectangle_area])
+    rocket::build().mount("/", routes![circle_area, triangle_area, rectangle_area])
 }
