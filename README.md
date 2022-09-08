@@ -37,7 +37,7 @@ curl --location --request POST 'http://localhost:8000/triangle/area' \
 
 ## Area of a Rectangle
 
-```
+```sh
 curl --location --request POST 'http://localhost:8000/rectangle/area' \
 --header 'Content-Type: application/json' \
 --data-raw '{
