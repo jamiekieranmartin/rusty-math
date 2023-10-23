@@ -2,10 +2,10 @@ name: Test
 
 on:
   push:
-    branches: []
+    branches-ignore: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
