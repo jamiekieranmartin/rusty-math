@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    uses: ./.github/workflows/test
+    uses: ./.github/workflows/test.yml
   build:
     runs-on: ubuntu-latest
 
