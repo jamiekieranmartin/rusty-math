@@ -10,6 +10,13 @@ pub struct Rectangle {
 }
 
 impl Rectangle {
+    pub fn new(top_left: Point, bottom_right: Point) -> Self {
+        Self {
+            top_left,
+            bottom_right,
+        }
+    }
+
     pub fn area(&self) -> f64 {
         let Point { x: x1, y: y1 } = self.top_left;
         let Point { x: x2, y: y2 } = self.bottom_right;
@@ -24,11 +31,22 @@ impl Rectangle {
 }
 
 #[test]
+fn test_rectangle_new() {
+    let top_left = Point::new(0.0, 0.0);
+    let bottom_right = Point::new(4.0, 4.0);
+
+    let rectangle = Rectangle::new(top_left, bottom_right);
+
+    assert!(rectangle.top_left.eq(&top_left));
+    assert!(rectangle.bottom_right.eq(&bottom_right));
+}
+
+#[test]
 fn test_rectangle_area() {
-    let rectangle = Rectangle {
-        top_left: Point { x: 0.0, y: 0.0 },
-        bottom_right: Point { x: 4.0, y: 4.0 },
-    };
+    let top_left = Point::new(0.0, 0.0);
+    let bottom_right = Point::new(4.0, 4.0);
+
+    let rectangle = Rectangle::new(top_left, bottom_right);
 
     let area = rectangle.area();
 
@@ -37,10 +55,10 @@ fn test_rectangle_area() {
 
 #[test]
 fn test_rectangle_perimeter() {
-    let rectangle = Rectangle {
-        top_left: Point { x: 0.0, y: 0.0 },
-        bottom_right: Point { x: 4.0, y: 4.0 },
-    };
+    let top_left = Point::new(0.0, 0.0);
+    let bottom_right = Point::new(4.0, 4.0);
+
+    let rectangle = Rectangle::new(top_left, bottom_right);
 
     let perimeter = rectangle.perimeter();
 

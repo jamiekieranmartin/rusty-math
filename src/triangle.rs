@@ -11,6 +11,10 @@ pub struct Triangle {
 }
 
 impl Triangle {
+    pub fn new(a: Point, b: Point, c: Point) -> Self {
+        Self { a, b, c }
+    }
+
     pub fn area(&self) -> f64 {
         let Point { x: x1, y: y1 } = self.a;
         let Point { x: x2, y: y2 } = self.b;
@@ -29,12 +33,25 @@ impl Triangle {
 }
 
 #[test]
+fn test_triangle_new() {
+    let a = Point::new(0.0, 0.0);
+    let b = Point::new(4.0, 4.0);
+    let c = Point::new(4.0, 0.0);
+
+    let triangle = Triangle::new(a, b, c);
+
+    assert!(triangle.a.eq(&a));
+    assert!(triangle.b.eq(&b));
+    assert!(triangle.c.eq(&c));
+}
+
+#[test]
 fn test_triangle_area() {
-    let triangle = Triangle {
-        a: Point { x: -2.0, y: 3.0 },
-        b: Point { x: -3.0, y: -1.0 },
-        c: Point { x: 3.0, y: -2.0 },
-    };
+    let a = Point::new(-2.0, 3.0);
+    let b = Point::new(-3.0, -1.0);
+    let c = Point::new(3.0, -2.0);
+
+    let triangle = Triangle::new(a, b, c);
 
     let area = triangle.area();
 
@@ -43,13 +60,13 @@ fn test_triangle_area() {
 
 #[test]
 fn test_triangle_perimeter() {
-    let triangle = Triangle {
-        a: Point { x: -2.0, y: 3.0 },
-        b: Point { x: -3.0, y: -1.0 },
-        c: Point { x: 3.0, y: -2.0 },
-    };
+    let a = Point::new(-2.0, 3.0);
+    let b = Point::new(-3.0, -1.0);
+    let c = Point::new(3.0, -2.0);
+
+    let triangle = Triangle::new(a, b, c);
 
     let perimeter = triangle.perimeter();
 
-    assert_eq!(perimeter, 17.211102);
+    assert_eq!(perimeter, 17.276935967781355);
 }
